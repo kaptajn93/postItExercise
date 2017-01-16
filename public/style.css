@@ -1,0 +1,102 @@
+﻿
+.board {
+    padding: 100px 30px 30px;
+    margin-top: 40px;
+    overflow-y: visible;
+    background-color: aqua;
+    height: 40em;
+}
+
+.note {
+  float: left;
+  display: block;
+  position: relative;
+  padding: 1em;
+  width: 200px;
+  height: 200px;
+  margin: 0 30px 30px 0;
+  background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjA1Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDAwMDAwIiBzdG9wLW9wYWNpdHk9IjAuMjUiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=') #00CC00;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.05)), color-stop(100%, rgba(0, 0, 0, 0.25))) #00CC00;
+  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #00CC00;
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #00CC00;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #00CC00;
+  background-color: #FFFD75;
+  box-shadow: 5px 5px 10px 5px rgba(33, 33, 33, 0.5);
+  transform: rotate(2deg);
+  transform: skew(-1deg, 1deg);
+  transition: transform .15s;
+  z-index: 1;
+}
+.note:hover {
+  cursor: move;
+  transform: scale(1.2)
+}
+textarea {
+  background-color: transparent;
+  border: none;
+  resize: vertical;
+  font-family: 'Gloria Hallelujah', cursive;
+  width: 100%;
+  height: 80%;
+  padding: 5px;
+  font-size: 1em;
+  line-height: 1.2;
+  color: #000;
+  
+  margin-top: 30px;
+    resize: none;
+    overflow: hidden;
+    outline: none;
+}
+
+.button {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,.3),inset 0px -1px 2px -1px rgba(0,0,0,.5), inset 0px 1px 2px 1px rgba(255,255,255,.3);
+    text-shadow: 0px -1px 0px rgba(0,0,0,.3), 0px 1px 0px rgba(255,255,255,.3);
+    text-decoration: none;
+    transition: transform .150s, background .01s;
+}
+
+button:hover {
+    background-color: #00EE00;
+    transform: scale(1.05);
+}
+
+button.remove {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #e01c12;
+    text-align: center;
+    line-height: 16px;
+    font-style: 1.6em;
+    font-weight: bolder;
+    font-family: Helvetica, Arial, sans-serif;
+    outline: none;
+    border: none;
+}
+button.remove:active {
+    text-shadow: 0px 1px 0px rgba(0,0,0,.3), 0px -1px 0px rgba(255,255,255,.3);
+    box-shadow: inset 0px 1px 2px rgba(0,0,0,.3), inset 0 -1px 2px rgba(255,255,255,.3);
+    outline: none;
+    background-color: #ef0005;
+}
+
+button:hover {
+    background-color: #EF0005;
+}
+
+button.addNote {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
