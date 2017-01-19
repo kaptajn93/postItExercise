@@ -1,7 +1,4 @@
-﻿//TEST FIL
-
-
-import React from 'react'
+﻿import React from 'react'
 import style from "../../public/style.css"
 import { connect } from 'react-redux'
 import Draggable from 'react-draggable';
@@ -11,8 +8,7 @@ var Competence = React.createClass({
 
  textChange(id, event) {
     var newText = event.currentTarget.value;
-    this.props.onChange(id, newText);
-
+    this.props.onChange("competences", id, newText);
     },
 render: function() {
         return (
@@ -20,17 +16,15 @@ render: function() {
                         <textarea id="competence" type="text"
                             placeholder="Enter competence title"
                             onChange={(event) => this.textChange(this.props.id, event)}
-                            />
-                            </div>
+                        />
+                    </div>
 );
 }
 });
-
 var Job = React.createClass({
-
  textChange(id, event) {
     var newText = event.currentTarget.value;
-    this.props.onChange(id, newText);
+    this.props.onChange("jobs", id, newText);
 
     },
 render: function() {
@@ -39,31 +33,23 @@ render: function() {
                         <textarea id="job" type="text"
                             placeholder="Enter job title"
                             onChange={(event) => this.textChange(this.props.id, event)}
-                            />
-                            </div>
+                        />
+                    </div>
 );
 }
 });
-
-
 var Note = React.createClass({
 
     textChange(id, event) {
     var newText = event.currentTarget.value;
-    this.props.onChange(id, newText);
+    this.props.onChange("notes", id, newText);
     //this.props.onTextChange(this.state.noteText);
 },
  removeNote(id) {
-    this.props.onRemoveNote(id);
+    this.props.onRemoveNote("notes", id);
 },
-
-    // eventLogger : (e: MouseEvent, data: Object) => {
-    // console.log('Event: ', event);
-    // console.log('Data: ', data);
-// },
     render: function() {
 
-        // const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
         return (
                     <div className="note" >
                         <a className="removeNote" onClick={() => this.removeNote(this.props.id)}>x</a>
@@ -75,110 +61,94 @@ var Note = React.createClass({
 );
 }
 });
-// 
+
+
 let Board = React.createClass({
     getInitialState: function() {
         return {
             notes: [],
-            noteTextList: [],
-            noteText: "sometext",
-            id: 0,
-            jobs: ["job 1"],
-            competences: []
+            jobs: [""],
+            deltaPosition: {x: 560, y: 125},
+            competences: [],
+            position: {x: 560, y: 125},
+            notePositions: [],
+            competenceNotes: []
         }
     },
-
+    handleDrag: function (e, ui) {
+      const {x, y} = this.state.deltaPosition;
+      this.setState({
+        deltaPosition: {
+          x: x + ui.deltaX,
+          y: y + ui.deltaY,
+        }
+      });
+    },
     
-    //Prøver at slå alle 3 add, remove og textChange sammen fra 9 til 3 funktioner - prøv senere
+    //Prøver at slå alle 3 add, remove og textChange sammen fra 9 til 3 funktioner
 
-//     addSomething: function(listName) {
-//         this.setState({ list: this.state.list.concat([""])})
-//     },
-
-// onRemoveSomething: function(listName) {
-//         var newList = this.state.listName;
-//         newList.splice(this.state.listName.length - 1, 1);
-//         this.setState({ list: newList });
-//     },
-
-// onSomeTextChange: function(listName, index, newText) {
-//         var newList = this.state.listName;
-//         this.setState.noteText = newText;
-
-//         newList.splice(index, 1, newText)
-//         this.setState({ listName: newList})
-//     },
-
-
-//Competences
-addCompetences: function() {
-        this.setState({ competences: this.state.competences.concat([""])})
-    },
-
-onRemoveCompetences: function() {
-        var newCompList = this.state.competences;
-        newCompList.splice(this.state.competences.length - 1, 1);
-        this.setState({ competences: newCompList });
-    },
-
-onCompTextChange: function(index, newText) {
-        var newCompList = this.state.competences;
-        this.setState.noteText = newText;
-
-        newCompList.splice(index, 1, newText)
-        this.setState({ competences: newCompList})
-    },
-
-//JOB
-addJob: function() {
-        this.setState({ jobs: this.state.jobs.concat([""])})
-    },
-
-onRemoveJob: function() {
-        var newJobList = this.state.jobs;
-        newJobList.splice(this.state.jobs.length - 1, 1);
-        this.setState({ jobs: newJobList });
-    },
-
-onJobTextChange: function(index, newText) {
-        var newJobList = this.state.jobs;
-        this.setState.noteText = newText;
-
-        newJobList.splice(index, 1, newText)
-        this.setState({ jobs: newJobList})
-    },
-
-//NOTE
-
-addChild: function() {
-        this.setState({ notes: this.state.notes.concat([{ note: Note}]) });
-        this.setState({ noteTextList: this.state.noteTextList.concat([{text: ""}])})
+    addSomething: function(listName) {
+        switch(listName){
+        case "notes":
+        this.setState({ notes: this.state.notes.concat([{ note: Note, text: "", position: {x: 600 ,y: 125} }]) });
         this.setState.id++
-        console.log(this.state.id);
-    },
+        break;
+        case "jobs":
+        this.setState({ jobs: this.state.jobs.concat([""])})
+        break;
+        case "competences":
+        this.setState({ competences: this.state.competences.concat([""])})
+        break;
+    }
+},
 
-    onTextChange: function(index, newText) {
-        var newNoteTextList = this.state.noteTextList;
+onRemoveSomething: function(listName, index) {
+        switch(listName){
+        case "notes":
+        // var newList = this.state.notes;
+        // newList.splice(this.state.notes[index], 1);
+        // this.setState({ notes: newList });
+
+        var noteList = this.state.notes;
+        delete noteList[index];
+        this.setState({ notes: noteList });
+        break;
+        case "jobs":
+        var newList = this.state.jobs;
+        newList.splice(this.state.jobs.length - 1, 1);
+        this.setState({ jobs: newList });
+        break;
+        case "competences":
+        var newList = this.state.competences;
+        newList.splice(this.state.competences.length - 1, 1);
+        this.setState({ competences: newList });
+        break;
+    }
+    },
+onSomeTextChange: function(listName, index, newText) {
+        switch(listName){
+        case "notes":
+
+        var newNoteList = this.state.notes;
+        
         this.setState.noteText = newText;
 
-        newNoteTextList.splice(index, 1, {text: newText})
-        this.setState({ noteTextList: newNoteTextList})
-    },
-//virker ikke som den skal
-    onRemoveNote: function(index) {
-        var newNoteList = this.state.notes;
-        newNoteList.splice(index, 1);
-        this.setState({ notes: newNoteList });
+        newNoteList[index].text = newText;
+        this.setState({ noteTextList: newNoteList})
 
-        var newNoteTextList = this.state.noteTextList;
-        newNoteTextList.splice(index, 1);
-        this.setState({ noteTextList: newNoteTextList });
-       
-        // var noteList = this.state.notes;
-        // delete noteList[index];
-        // this.setState({ notes: noteList });
+        break;
+        case "jobs":
+        var newList = this.state.jobs;
+        newList.splice(index, 1, newText)
+        this.setState({ jobs: newList})
+        break;
+        case "competences":
+        var newList = this.state.competences;
+        newList.splice(index, 1, newText)
+        this.setState({ competences: newList})
+        break;
+    }
     },
-
     eventLogger : (e: MouseEvent, data: Object) => {
     console.log('Event: ', event);
     console.log('Data: ', data);
@@ -187,42 +157,38 @@ addChild: function() {
     render: function(){
         const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
         return(
-            
+            <div>
             <div>
             <h1 style={{"textAlign": "center"}}> My Board! </h1>
-        <center><button className="addNote" onClick={() => this.addChild()}>Tilføj note</button></center>
-        <button className="addJob" onClick={() => this.addJob()}>Tilføj job</button>
-        <button className="removeJob" onClick={() => this.onRemoveJob()}>Fjern job</button>
-        
-        <button className="removeCompetence" style={{"float": "right"}} onClick={() => this.onRemoveCompetences()}>Fjern kompetance</button>
-        <button className="addCompetence" style={{"float": "right"}} onClick={() => this.addCompetences()}>Tilføj kompetance</button>
+            </div>
+        <center><button className="addNote" onClick={() => this.addSomething("notes")}>Tilføj note</button></center>
+        <button className="addJob" onClick={() => this.addSomething("jobs")}>Tilføj job</button>
+        <button className="removeJob" onClick={() => this.onRemoveSomething("jobs")}>Fjern job</button>
+        <button className="removeCompetence" style={{"float": "right"}} onClick={() => this.onRemoveSomething("competences")}>Fjern kompetance</button>
+        <button className="addCompetence" style={{"float": "right"}} onClick={() => this.addSomething("competences")}>Tilføj kompetance</button>
 
-
-        <div className="board" >
-
+        <div className="board">
         { this.state.notes.map((note, index) =>
-            <Draggable bounds="parent" { ...dragHandlers}  >
-            <div className="moveableArea">
+            <Draggable bounds="body" onDrag={this.handleDrag} { ...dragHandlers}  >
+            <div className="moveableArea" style={{ "transform": "translate(" + note.position[0] + "px,"+ note.position[1] + "px)"  }}>
             <Note
                 key={index}
                 value={this.state.noteText}
                 id={index}
-                onRemoveNote={this.onRemoveNote}
-                onChange={this.onTextChange}
+                onRemoveNote={this.onRemoveSomething}
+                onChange={this.onSomeTextChange}
     />
     </div>
     </Draggable>
     )}
-    <div style={{"display": "inline-block", "height": "100%", "width": "50%", "marginTop": "5%"}}>
+    <div style={{"display": "block", "height": "100%", "width": "50%", "float": "left", "marginTop": "2em"}}>
     {this.state.jobs.map((job, index) =>
-        <div style={{"display": "inline-block", "marginRight": "25em"}}>
         <Job 
         key={index}
         value={this.state.noteText}
         id={index}
-        onChange={this.onJobTextChange}
+        onChange={this.onSomeTextChange}
         />
-        </div>
         )}
         </div>
         <div style={{"display": "block", "height": "100%", "width": "50%", "float": "right"}}>
@@ -231,7 +197,7 @@ addChild: function() {
         key={index}
         value={this.state.noteText}
         id={index}
-        onChange={this.onCompTextChange}
+        onChange={this.onSomeTextChange}
         />
         )}
         </div>
