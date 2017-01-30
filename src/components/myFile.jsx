@@ -99,6 +99,8 @@ let Board = React.createClass({
         case "competences":
         this.setState({ competences: this.state.competences.concat([""])})
         break;
+        default:
+        alert("onSomeChange, list not found");
     }
 },
 
@@ -119,10 +121,12 @@ onRemoveSomething: function(listName, index) {
         this.setState({ jobs: newList });
         break;
         case "competences":
-        var newList = this.state.competences;
+        newList = this.state.competences;
         newList.splice(this.state.competences.length - 1, 1);
         this.setState({ competences: newList });
         break;
+        default:
+        alert("onSomeChange, list not found");
     }
     },
 onSomeTextChange: function(listName, index, newText) {
@@ -143,10 +147,12 @@ onSomeTextChange: function(listName, index, newText) {
         this.setState({ jobs: newList})
         break;
         case "competences":
-        var newList = this.state.competences;
+        newList = this.state.competences;
         newList.splice(index, 1, newText)
         this.setState({ competences: newList})
         break;
+        default:
+        alert("onSomeChange, list not found");
     }
     },
     eventLogger : (e: MouseEvent, data: Object) => {
