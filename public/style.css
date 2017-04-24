@@ -1,20 +1,193 @@
-﻿
-.board {
+﻿.container{
+    height: 40em;
+    width: 1024px;
     overflow: hidden;
+    align-self: center;
+    align-content: center;
+}
+    @media screen and (max-width: 1224px) {
+    .container{
+        width: 100%;
+    }
+}
+    
+.board {
     background-color: linen;
-    height: 50em;
+    width: 150%;
+    display: block;
+    overflow-y: scroll;
+    outline: none;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+
+  transition: all 1s ease-out; /* Animates the sliding transition */
+  transform: translateX(0%);
+}
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/*---Jobs---*/
+.jobsDiv{
+    width: 33.3%;
+    display: block;
+    height: 100%;
+    float: left; /* Makes sure panels are side-by-side */
+    /*overflow-x: hidden;
+    overflow-y: auto;*/
+}
+textarea#job{
+    font-size: 1.5em;
+    font-family: 'Times New Roman', Times, serif;
+    width: 90%;
+    z-index: 100;
+    margin-bottom: 24.5%;
+    margin-top: 4%;
+    margin-left: 0%; 
+}
+.removeJob {
+    float: left;
+    width: 9%;
+    text-align: center;
+    margin-top: 4%;
+    font-size: 150%;
+    font-weight: bolder;
+    font-family: Helvetica, Arial, sans-serif;
+    color: transparent;
+    transition: transform .150s, background .01s;
+}
+.removeJob:active {
+    text-shadow: 0px 1px 0px rgba(0,0,0,.3), 0px -1px 0px rgba(255,255,255,.3);
+    outline: none;
+    
+}
+textarea#job:hover + .removeJob{
+    color: gray;
+}
+.removeJob:hover {
+    transform: scale(1.50);
+    cursor: pointer;
+    color: gray;
+}
+/*---Competences---*/
+.compDiv{
+
+    width: 33.4%;
+    display: block;
+    height: 100%;
+    float: left; 
+
+}
+.compUl{
+    list-style-type: none;
+    height: 100%;
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+    /*overflow-x: hidden;
+    overflow-y: auto;*/
+}
+.compUl li{
+    height: fit-content;
+    margin-left: 20%;
+    margin-top: 2%;
+    margin-bottom: 24.9%;
     width: 100%;
     display: block;
+    float: left; /* Makes sure panels are side-by-side */
 }
 
- 
+textarea#competence{
+    font-size: 150%;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    color: white;
+  background: -webkit-linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #ffffff;
+  background: -o-linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #ffffff;
+  background: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #ffffff;
+  background-color: #6597AF;
+  box-shadow: 5px 5px 10px 5px rgba(33, 33, 33, 0.5);
+  min-width: 10em;
+  max-width: 50%;
+  z-index: 100;
+  padding-top: 2%;
+}
+
+.removeComp {
+   float: left;
+    width: 9%;
+    text-align: center;
+    margin-top: 4%;
+    margin-right: 2%;
+    margin-left: -4%;
+    font-size: 150%;
+    font-weight: bolder;
+    font-family: Helvetica, Arial, sans-serif;
+    color: transparent;
+    transition: transform .150s, background .01s;
+}
+.removeComp:active {
+    text-shadow: 0px 1px 0px rgba(0,0,0,.3), 0px -1px 0px rgba(255,255,255,.3);
+    outline: none;
+    
+}
+textarea#competence:hover + .removeComp{
+    color: gray;
+}
+.removeComp:hover {
+    transform: scale(1.50);
+    cursor: pointer;
+    color: gray;
+}
+
+/*---Prioritize---*/
+.hiddenDiv{
+    position: fixed;
+    left: 66.6%;
+    width: 33.3%;
+    display: block;
+    height: 100%;
+    float: right; /* Makes sure panels are side-by-side */
+    align-items: center;
+}
+.olDiv{
+    min-height: 20em;
+    min-width: 75%;
+    max-width: 100%;
+    border: dashed 2px black;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    counter-reset: nCounter 0;
+    padding: 3%;
+}
+ol li{
+  list-style: none outside;
+  margin-bottom: 3%;
+  
+}
+ol li div::before {
+     display: inline;
+    content: counter(nCounter);
+    counter-increment: nCounter;
+    font-family: cursive;
+    font-style: italic;
+    font-size: 30px;
+    float: left;
+    margin-top: 2%;
+    margin-right: 10%;
+    margin-left: -10%;
+}
+/*---Note---*/
 .note {
-  float: left;
-  display: block;
-  position: relative;
-  padding: 1em;
-  width: 100px;
-  height: 100px;
+  padding: 10%;
+  width: 5em;
+  height: 5em;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.05)), color-stop(100%, rgba(0, 0, 0, 0.25))) #00CC00;
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #00CC00;
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #00CC00;
@@ -24,91 +197,17 @@
   transform: rotate(2deg);
   transform: skew(-1deg, 1deg);
   transition: transform .15s;
+
 }
 .note:hover {
   cursor: move;
-  transform: scale(1.5);
+  transform: scale(2);
+      z-index: 100;
 }
-
-.react-draggable.react-draggable-dragging{ 
-   	  z-index: 100;
+.note textarea{
+ margin-top: 0.5em;
+  margin-left: -0.7em;
 }
-
-textarea {
-  background-color: transparent;
-  border: none;
-  resize: vertical;
-  font-family: 'Gloria Hallelujah', cursive;
-  width: 120%;
-  height: 90%;
-  padding: 1px;
-  font-size: 1em;
-  line-height: 1.2;
-  color: #000;
-  z-index: 1;
-  margin-top: 0.5em;
-  margin-left: -0.5em;
-    resize: none;
-    overflow: hidden;
-    outline: none;
-}
-
-
-textarea#job{
-    font-size: 1.5em;
-    font-family: 'Times New Roman', Times, serif;
-    width: 100%;
-    height: 10em;
-    z-index: 100;
-    margin-left: 2em;
-}
-
-.competence{
-    width: 100%;
-    height: 31%;
-    z-index: 100;
-    display: block;
-    margin-top: 1em
-}
-
-textarea#competence{
-    position: relative;
-    left: 25%;
-    font-size: 1.5em;
-    font-family: 'Times New Roman', Times, serif;
-    text-align: center;
-    z-index: 100;
-    color: white;
-    display: block;
-  background: -webkit-linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #ffffff;
-  background: -o-linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #ffffff;
-  background: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25)) #ffffff;
-  background-color: #6597AF;
-  box-shadow: 5px 5px 10px 5px rgba(33, 33, 33, 0.5);
-  height: 15%;
-  width: 15em;
-}
-
-
-
-.button {
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 3px;
-    box-shadow: 1px 1px 3px rgba(0,0,0,.3),inset 0px -1px 2px -1px rgba(0,0,0,.5), inset 0px 1px 2px 1px rgba(255,255,255,.3);
-    text-shadow: 0px -1px 0px rgba(0,0,0,.3), 0px 1px 0px rgba(255,255,255,.3);
-    text-decoration: none;
-    transition: transform .150s, background .01s;
-}
-
-button:hover {
-    background-color: #00EE00;
-    transform: scale(1.05);
-}
-
 .removeNote {
     position: absolute;
     top: 5px;
@@ -119,7 +218,6 @@ button:hover {
     font-style: 1.6em;
     font-weight: bolder;
     font-family: Helvetica, Arial, sans-serif;
-
     color: gray;
     transition: transform .150s, background .01s;
 }
@@ -127,17 +225,108 @@ button:hover {
     text-shadow: 0px 1px 0px rgba(0,0,0,.3), 0px -1px 0px rgba(255,255,255,.3);
     outline: none;
 }
-
 .removeNote:hover {
     transform: scale(1.05);
     cursor: pointer;
-    
 }
 
+/*---Other---*/
+
+.react-draggable.react-draggable-dragging{ 
+   	  z-index: 100;
+}
 .moveableArea{
     display: inline-block;
     position: absolute;
-    margin-left: 2em;
-    margin-top: 7em;
-
+    z-index: 1
 }
+.done{
+    position: relative;
+    margin-top: 30%;
+    margin-right: 45%;
+    float: right;
+}
+.addJob{
+    position: relative;
+    height: 10%;
+    width: 5%;
+    border-radius: 50%;
+    left: 5%;
+    top: -10%;
+}
+.fixed-action-btn {
+     position: relative;
+     float: right;
+     height: inherit;
+} 
+
+.moveNext {
+
+  position: relative;
+  border: none;
+  color: black;
+  text-align: center;
+  font-size: 2.8em;
+  float: right;
+  height: 100%;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.moveNext span {
+  cursor: pointer;
+  transition: 0.5s;
+    z-index: 999;
+}
+.moveNext span:after {
+  content: '\00bb';
+  opacity: 0;
+  transition: 0.5s;
+}
+.moveNext:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.moveBack {
+  position: inline;
+  background-color: transparent;
+  border: none;
+  color: black;
+  text-align: center;
+  font-size: 2.8em;
+  float: left;
+  height: 100%;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+.moveBack span {
+  cursor: pointer;
+  transition: 0.5s;
+  z-index: 999;
+}
+.moveBack span:after {
+  content: '\00ab';
+  opacity: 0;
+  transition: 0.5s;
+  z-index: 999;
+}
+.moveBack:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+textarea {
+  background-color: transparent;
+  border: none;
+  resize: vertical;
+  font-family: 'Gloria Hallelujah', cursive;
+  width: 120%;
+  height: 90%;
+  font-size: 0.75em;
+  line-height: 1.2;
+  color: #000;
+    resize: none;
+    overflow: hidden;
+    outline: none;
+}
+

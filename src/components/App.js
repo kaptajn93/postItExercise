@@ -1,5 +1,6 @@
 import React from 'react'
-import Board from '../components/myFile'
+import Board from '../components/board'
+
 
 const App = () => (
   <div>
